@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Dia da Mulher, Sandrely!</title>
+    <style>
+        /* Estilos base */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px 20px;
+            max-width: 400px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        /* Botões */
+        .btn {
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #ad1457;
+            transform: translateY(-2px);
+        }
+
+        /* Tela 1: O Envelope Misterioso */
+        #screen-1 h1 {
+            color: #d81b60;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        #screen-1 p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Tela 2: A Surpresa e o Gerador */
+        #screen-2 {
+            display: none; /* Escondido inicialmente */
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #screen-2.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        #screen-2 h2 {
+            color: #d81b60;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        /* Caixa onde os motivos vão aparecer */
+        .reason-box {
+            margin: 25px 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #444;
+            padding: 20px;
+            border-left: 5px solid #d81b60;
+            background: #fff0f5;
+            border-radius: 0 15px 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="screen-1">
+            <h1>Oii, Sandrely! 🌸</h1>
+            <p>Preparei uma pequena surpresa para você neste dia especial. Pronta?</p>
+            <button class="btn" onclick="revealSurprise()">Abrir Envelope Virtual ✉️</button>
+        </div>
+
+        <div id="screen-2">
+            <h2>Feliz Dia da Mulher! ❤️</h2>
+            <p>Você é incrível por infinitos motivos. Clique abaixo para ver alguns deles:</p>
+            
+            <div class="reason-box" id="reason-display">
+                "Clique no botão abaixo para começar..."
+            </div>
+            
+            <button class="btn" onclick="generateReason()">Por que você é maravilhosa? ✨</button>
+            
+            <button class="btn whatsapp-btn" onclick="sendWhatsApp()">Me mandar um beijo 😘</button>
+        </div>
+    </div>
+
+    <script>
+        // Array com os motivos. Você pode editar e adicionar quantos quiser!
+        const motivos = [
+            "A mulher incrível, forte e determinada que você é.",
+            "O seu sorriso que ilumina qualquer lugar que você chega.",
+            "Sua dedicação inspiradora em cuidar tão bem dos seus pacientes e principalmente comigo.",
+            "A forma como você me apoia e me inspira a ser melhor todos os dias.",
+            "Sua inteligência admirável e sua capacidade de correr atrás dos seus sonhos.",
+            "O amor e o carinho gigante que você coloca em tudo o que faz.",
+            "Você é o meu porto seguro e a mulher que me inspira a ser um homem melhor.",
+            "O seu abraço, que é disparado o melhor lugar do mundo para descansar.",
+            "Aquele seu olhar que diz tudo sem precisar de uma única palavra kkkk",
+            "Porque mesmo quando você tá com fome (e um pouquinho brava), continua sendo a mulher da minha vida.",
+            "Porque eu te amo mais do que amo dormir até tarde no final de semana.",
+            "Porque você me ensina a ser mais saudável, mas me ama mesmo quando eu dou uma escapada da alimentação kkkk",
+            "Porque você é o CSS perfeito que dá cor, estilo e beleza à minha vida.(piada de programador kkkk)",
+            "Porque você não é só a melhor nutricionista, é também a minha parceira favorita para todos os projetos."
+        ];
+
+        // Lógica para esconder a Tela 1 e mostrar a Tela 2 com suavidade
+        function revealSurprise() {
+            const screen1 = document.getElementById('screen-1');
+            const screen2 = document.getElementById('screen-2');
+            
+            screen1.style.display = 'none';
+            screen2.style.display = 'block';
+            
+            // Pequeno delay para a transição do CSS funcionar corretamente
+            setTimeout(() => {
+                screen2.classList.add('visible');
+            }, 50);
+        }
+
+        // Lógica para sortear um motivo diferente do atual
+        let lastIndex = -1;
+        function generateReason() {
+            let randomIndex;
+            // Garante que o mesmo motivo não apareça duas vezes seguidas
+            do {
+                randomIndex = Math.floor(Math.random() * motivos.length);
+            } while (randomIndex === lastIndex);
+            
+            lastIndex = randomIndex;
+            const display = document.getElementById('reason-display');
+            
+            // Efeito rápido de piscar o texto para dar sensação de mudança
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.innerText = '"' + motivos[randomIndex] + '"';
+                display.style.opacity = 1;
+            }, 200);
+        }
+
+        // Lógica para redirecionar para o seu WhatsApp com uma mensagem pronta
+        function sendWhatsApp() {
+            // Substitua 'SEU_NUMERO' pelo seu número com DDI e DDD (ex: 5511999999999)
+            const numero = "+5581983669631"; 
+            const mensagem = encodeURIComponent("Amor, amei a surpresa do Dia da Mulher! Obrigado por ser tão especial. ❤️");
+            window.open(`https://wa.me/${numero}?text=${mensagem}`, '_blank');
+        }
+    </script>
+</body>
+</html>
